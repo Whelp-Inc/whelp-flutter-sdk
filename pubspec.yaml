@@ -1,0 +1,22 @@
+name: whelp_flutter_sdk
+description: Whelp live chat SDK for Flutter
+version: 0.1.0
+homepage: https://whelp.co
+
+environment:
+  sdk: '>=2.15.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  crypto: ^3.0.3
+  flutter:
+    sdk: flutter
+  http: ^1.1.0
+  webview_flutter: ^4.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
