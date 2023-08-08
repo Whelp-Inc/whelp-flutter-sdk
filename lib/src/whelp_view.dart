@@ -32,7 +32,8 @@ class _WhelpViewState extends State<WhelpView> {
   @override
   void initState() {
     super.initState();
-    controller = WebViewController();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
     // Call the authentication process after the widget is built.
     WidgetsBinding.instance.addPostFrameCallback((_) async {
