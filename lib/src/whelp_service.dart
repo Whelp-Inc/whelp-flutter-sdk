@@ -10,6 +10,18 @@ typedef LiveChatUrl = String;
 
 /// A service class to interact with the Whelp live chat API.
 class WhelpService {
+  static WhelpService? _instance;
+
+  // Private constructor
+  WhelpService._();
+
+  // Public method to access the instance
+  static WhelpService get instance {
+    _instance ??= WhelpService._();
+
+    return _instance!;
+  }
+
   /// Authenticates the user with the Whelp service and retrieves the URL to the live chat interface.
   ///
   /// The [disableMoreButton] parameter indicates whether the "More" button is disabled in the chat interface.
