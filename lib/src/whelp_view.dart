@@ -13,6 +13,7 @@ class WhelpView extends StatefulWidget {
     Key? key,
     required this.user,
     required this.config,
+    this.loadingBuilder,
   }) : super(key: key);
 
   /// The user's information required for authentication with the Whelp service.
@@ -20,6 +21,9 @@ class WhelpView extends StatefulWidget {
 
   /// The configuration settings for the Whelp SDK.
   final WhelpConfig config;
+
+  /// A builder for the loading indicator widget.
+  final WidgetBuilder? loadingBuilder;
 
   @override
   State<WhelpView> createState() => _WhelpViewState();
@@ -47,7 +51,7 @@ class _WhelpViewState extends State<WhelpView> {
     setState(() => _loading = true);
 
     // Retrieve the URL to the live chat interface through WhelpService.
-    final url = await WhelpService().authenticate(
+    final url = await WhelpService.instance.authenticate(
       disableMoreButton: widget.config.disableMoreButton,
       fullName: widget.user.fullName,
       phoneNumber: widget.user.phoneNumber,
@@ -68,9 +72,10 @@ class _WhelpViewState extends State<WhelpView> {
   Widget build(BuildContext context) {
     // Show a loading indicator or the WebView based on the _loading flag.
     return _loading
-        ? const Center(
-            child: CircularProgressIndicator.adaptive(),
-          )
+        ? widget.loadingBuilder?.call(context) ??
+            const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
         : WebViewWidget(
             controller: controller,
           );
