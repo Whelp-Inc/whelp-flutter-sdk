@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:whelp_flutter_sdk/whelp_flutter_sdk.dart';
 
+const whelpColor = Color(0xff194856);
+
 void main() {
   runApp(const App());
 }
@@ -20,39 +22,47 @@ class App extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whelpColor,
       appBar: AppBar(
-        title: const Text(
-          'Customer Support',
-          style: TextStyle(
-            fontSize: 16.0,
-            color: Colors.black,
-            fontWeight: FontWeight.w500,
-          ),
+        backgroundColor: whelpColor,
+        title: Image.network(
+          'https://whelp.co/blog/content/images/2023/01/Untitled-design-2-.png',
+          height: 24.0,
         ),
       ),
-      body: SafeArea(
-        child: WhelpView(
-          config: WhelpConfig(
-            appId: 'your_app_id',
-            apiKey: 'your_api_key',
-            deviceToken: 'fcm_token',
-            disableMoreButton: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24.0),
+            topRight: Radius.circular(24.0),
           ),
-          user: WhelpUser(
-            fullName: 'John Doe',
-            phoneNumber: '+1234567890',
-            language: 'EN',
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24.0),
+            topRight: Radius.circular(24.0),
+          ),
+          child: SafeArea(
+            child: WhelpView(
+              config: WhelpConfig(
+                appId: 'app_id',
+                apiKey: 'api_key',
+                deviceToken: 'fcm_token',
+                disableMoreButton: true,
+              ),
+              user: WhelpUser(
+                fullName: 'John Doe',
+                phoneNumber: '+1234567890',
+                language: 'EN',
+              ),
+            ),
           ),
         ),
       ),
