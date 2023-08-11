@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Breaking change: `deviceToken` is replaced with `deviceId` in `WhelpConfig`.
+
 ## 0.1.1
 
 - Fix `Android` launch issue.
