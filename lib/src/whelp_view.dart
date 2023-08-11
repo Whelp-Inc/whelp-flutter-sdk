@@ -58,7 +58,7 @@ class _WhelpViewState extends State<WhelpView> {
       language: widget.user.language,
       appId: widget.config.appId,
       apiKey: widget.config.apiKey,
-      deviceToken: widget.config.deviceToken,
+      deviceId: widget.config.deviceId,
     );
 
     // Load the chat interface in the WebView.

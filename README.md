@@ -39,7 +39,7 @@ import 'package:whelp_flutter_sdk/whelp_flutter_sdk.dart';
 2. Create a `WhelpUser`` instance with user information for authentication:
     
 ```dart
-WhelpUser user = WhelpUser(
+final WhelpUser user = WhelpUser(
   fullName: 'John Doe',
   phoneNumber: '+1234567890',
   language: 'EN',
@@ -49,10 +49,10 @@ WhelpUser user = WhelpUser(
 3. Create a `WhelpConfig`` instance with your Whelp application ID and API key:
     
 ```dart
-WhelpConfig config = WhelpConfig(
+final WhelpConfig config = WhelpConfig(
   appId: 'your_app_id',
   apiKey: 'your_api_key',
-  deviceToken: 'fcm_token'
+  deviceId: 'device_id'
   disableMoreButton: true,
 );
 ```

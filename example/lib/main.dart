@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
               config: WhelpConfig(
                 appId: 'app_id',
                 apiKey: 'api_key',
-                deviceToken: 'fcm_token',
+                deviceId: 'device_id',
                 disableMoreButton: true,
               ),
               user: WhelpUser(

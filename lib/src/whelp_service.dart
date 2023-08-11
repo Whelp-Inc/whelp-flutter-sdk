@@ -36,7 +36,7 @@ class WhelpService {
   ///
   /// The [apiKey] parameter is the Whelp API key required for generating the authentication hash.
   ///
-  /// The [deviceToken] parameter represents the unique token of the user's device.
+  /// The [deviceId] parameter represents the unique ID of the user's device.
   ///
   /// Returns a Future that completes with the URL to the live chat interface upon successful authentication.
   Future<LiveChatUrl> authenticate({
@@ -46,7 +46,7 @@ class WhelpService {
     required String language,
     required String appId,
     required String apiKey,
-    required String? deviceToken,
+    required String? deviceId,
   }) async {
     final endpoint = Uri.parse('https://widget-api.getwhelp.com/sdk/auth');
 
@@ -76,7 +76,7 @@ class WhelpService {
       'X-APP-ID': appId,
       'X-DEVICE-OS': deviceOs,
       'X-HASH-VALUE': hash,
-      if (deviceToken != null) 'X-DEVICE-TOKEN': deviceToken,
+      if (deviceId != null) 'X-DEVICE-TOKEN': deviceId,
     };
 
     final result = await http.post(
