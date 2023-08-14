@@ -24,6 +24,27 @@ dependencies:
 
 Then, run flutter pub get in your terminal to install the package.
 
+## Configuration
+
+In order to be able to use media attachments in the live chat interface, you must add the following permissions to your app's `AndroidManifest.xml` for Android and `Info.plist` for iOS:
+
+### Android
+
+```xml
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+```
+
+### iOS
+
+```xml
+    <key>NSCameraUsageDescription</key>
+    <string>Camera permission is required for live chat media attachments.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Photo library permission is required for live chat media attachments.</string>
+```
+
 ## Usage
 
 To use the Whelp Flutter Live Chat Package, follow these steps:
