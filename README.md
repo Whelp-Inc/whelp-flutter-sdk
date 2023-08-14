@@ -19,7 +19,7 @@ To use this package, add `whelp_flutter_sdk` as a dependency in your `pubspec.ya
 dependencies:
   flutter:
     sdk: flutter
-  whelp_flutter_sdk: ^0.1.0
+  whelp_flutter_sdk: ^0.2.0
 ```
 
 Then, run flutter pub get in your terminal to install the package.

@@ -1,3 +1,8 @@
+## 0.2.0
+
+- Migrate to `flutter_inappwebview` plugin.
+- Add examples for media permissions for `iOS` and `Android`.
+
 ## 0.1.2
 
 - Breaking change: `deviceToken` is replaced with `deviceId` in `WhelpConfig`.
