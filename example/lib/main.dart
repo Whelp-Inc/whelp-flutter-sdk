@@ -31,6 +31,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: whelpColor,
       appBar: AppBar(
         backgroundColor: whelpColor,
+        centerTitle: true,
         title: Image.network(
           'https://whelp.co/blog/content/images/2023/01/Untitled-design-2-.png',
           height: 24.0,
