@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:whelp_flutter_sdk/src/whelp_service.dart';
 import 'package:whelp_flutter_sdk/whelp_flutter_sdk.dart';
 
@@ -14,6 +14,7 @@ class WhelpView extends StatefulWidget {
     required this.user,
     required this.config,
     this.loadingBuilder,
+    this.placeholderColor = Colors.white,
   }) : super(key: key);
 
   /// The user's information required for authentication with the Whelp service.
@@ -25,31 +26,28 @@ class WhelpView extends StatefulWidget {
   /// A builder for the loading indicator widget.
   final WidgetBuilder? loadingBuilder;
 
+  /// The background color of the page until the live chat interface is loaded.
+  final Color placeholderColor;
+
   @override
   State<WhelpView> createState() => _WhelpViewState();
 }
 
 class _WhelpViewState extends State<WhelpView> {
-  late final WebViewController controller;
-  bool _loading = false;
+  Uri? _url;
 
   @override
   void initState() {
     super.initState();
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
     // Call the authentication process after the widget is built.
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _authenticateUser();
     });
   }
 
   /// Authenticates the user with the Whelp service and loads the chat interface in the WebView.
   Future<void> _authenticateUser() async {
-    // Show loading indicator while authenticating.
-    setState(() => _loading = true);
-
     // Retrieve the URL to the live chat interface through WhelpService.
     final url = await WhelpService.instance.authenticate(
       disableMoreButton: widget.config.disableMoreButton,
@@ -61,23 +59,19 @@ class _WhelpViewState extends State<WhelpView> {
       deviceId: widget.config.deviceId,
     );
 
-    // Load the chat interface in the WebView.
-    await controller.loadRequest(Uri.parse(url));
-
-    // Hide loading indicator after authentication is complete.
-    setState(() => _loading = false);
+    setState(() => _url = Uri.parse(url));
   }
 
   @override
   Widget build(BuildContext context) {
-    // Show a loading indicator or the WebView based on the _loading flag.
-    return _loading
+    // Show a loading indicator or the WebView based on the _url variable
+    return _url == null
         ? widget.loadingBuilder?.call(context) ??
             const Center(
               child: CircularProgressIndicator.adaptive(),
             )
-        : WebViewWidget(
-            controller: controller,
+        : InAppWebView(
+            initialUrlRequest: URLRequest(url: _url),
           );
   }
 }
