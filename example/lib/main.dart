@@ -62,6 +62,8 @@ class HomePage extends StatelessWidget {
                 fullName: 'John Doe',
                 phoneNumber: '+1234567890',
                 language: 'EN',
+                email: 'john@doe.com',
+                identifier: IdentityIdentifier.email,
               ),
             ),
           ),
