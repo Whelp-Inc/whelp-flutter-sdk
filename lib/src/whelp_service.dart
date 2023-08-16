@@ -42,7 +42,9 @@ class WhelpService {
   Future<LiveChatUrl> authenticate({
     required bool disableMoreButton,
     required String fullName,
-    required String phoneNumber,
+    required String? phoneNumber,
+    required String? email,
+    required String? identity,
     required String language,
     required String appId,
     required String apiKey,
@@ -55,9 +57,10 @@ class WhelpService {
       "contact": {
         "fullname": fullName,
         "phone": phoneNumber,
+        "email": email,
       },
       'identity': {
-        'field': 'phone',
+        'field': identity,
       },
       'language': language
     };

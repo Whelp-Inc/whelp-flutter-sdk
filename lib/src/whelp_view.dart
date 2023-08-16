@@ -53,6 +53,10 @@ class _WhelpViewState extends State<WhelpView> {
       disableMoreButton: widget.config.disableMoreButton,
       fullName: widget.user.fullName,
       phoneNumber: widget.user.phoneNumber,
+      email: widget.user.email,
+      identity: widget.user.identifier == IdentityIdentifier.email
+          ? 'email'
+          : 'phone',
       language: widget.user.language,
       appId: widget.config.appId,
       apiKey: widget.config.apiKey,
