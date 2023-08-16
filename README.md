@@ -31,18 +31,18 @@ In order to be able to use media attachments in the live chat interface, you mus
 ### Android
 
 ```xml
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 
 ### iOS
 
 ```xml
-    <key>NSCameraUsageDescription</key>
-    <string>Camera permission is required for live chat media attachments.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Photo library permission is required for live chat media attachments.</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Camera permission is required for live chat media attachments.</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Photo library permission is required for live chat media attachments.</string>
 ```
 
 ## Usage
@@ -57,17 +57,20 @@ Import the necessary libraries:
 import 'package:whelp_flutter_sdk/whelp_flutter_sdk.dart';
 ```
 
-2. Create a `WhelpUser`` instance with user information for authentication:
+2. Create a `WhelpUser` instance with user information for authentication:
     
 ```dart
 final WhelpUser user = WhelpUser(
   fullName: 'John Doe',
   phoneNumber: '+1234567890',
   language: 'EN',
+  identifier: IdentityIdentifier.email,
 );
 ```
 
-3. Create a `WhelpConfig`` instance with your Whelp application ID and API key:
+Here the `identifier` is based on which the identity and uniquness of the user is determined: if matched, previous chats of the user will be loaded, otherwise a new chat will be created.
+
+3. Create a `WhelpConfig` instance with your Whelp application ID and API key:
     
 ```dart
 final WhelpConfig config = WhelpConfig(

@@ -1,3 +1,9 @@
+## 0.2.1
+
+- Added `email` property to `WhelpUser`
+- Added `IdentityIdentifier` to `WhelpUser`: `IdentityIdentifier.email`, `IdentityIdentifier.phoneNumber`
+- Added license
+
 ## 0.2.0
 
 - Migrate to `flutter_inappwebview` plugin.
