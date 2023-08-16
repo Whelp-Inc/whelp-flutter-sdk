@@ -76,6 +76,11 @@ class _WhelpViewState extends State<WhelpView> {
             )
         : InAppWebView(
             initialUrlRequest: URLRequest(url: _url),
+            initialOptions: InAppWebViewGroupOptions(
+              crossPlatform: InAppWebViewOptions(
+                transparentBackground: true,
+              ),
+            ),
           );
   }
 }
