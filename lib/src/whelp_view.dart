@@ -3,6 +3,10 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:whelp_flutter_sdk/src/whelp_service.dart';
 import 'package:whelp_flutter_sdk/whelp_flutter_sdk.dart';
 
+/// A custom implementation of the ChromeSafariBrowser class that is used to
+/// open external links.
+class _WhelpChromeSafariBrowser extends ChromeSafariBrowser {}
+
 /// WhelpView is a Flutter widget that provides a WebView for displaying the Whelp live chat interface.
 class WhelpView extends StatefulWidget {
   /// Creates a new instance of WhelpView.
@@ -34,11 +38,14 @@ class WhelpView extends StatefulWidget {
 }
 
 class _WhelpViewState extends State<WhelpView> {
+  late final _WhelpChromeSafariBrowser _browser;
   Uri? _url;
 
   @override
   void initState() {
     super.initState();
+
+    _browser = _WhelpChromeSafariBrowser();
 
     // Call the authentication process after the widget is built.
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -67,6 +74,12 @@ class _WhelpViewState extends State<WhelpView> {
   }
 
   @override
+  void dispose() {
+    _browser.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Show a loading indicator or the WebView based on the _url variable
     return _url == null
@@ -79,8 +92,20 @@ class _WhelpViewState extends State<WhelpView> {
             initialOptions: InAppWebViewGroupOptions(
               crossPlatform: InAppWebViewOptions(
                 transparentBackground: true,
+                useShouldOverrideUrlLoading: true,
               ),
             ),
+            shouldOverrideUrlLoading: (controller, navigationAction) async {
+              final url = navigationAction.request.url;
+
+              if (url.toString().contains('whelp.co') ||
+                  url.toString().contains('about:srcdoc')) {
+                return NavigationActionPolicy.ALLOW;
+              } else {
+                _browser.open(url: url!);
+                return NavigationActionPolicy.CANCEL;
+              }
+            },
           );
   }
 }
