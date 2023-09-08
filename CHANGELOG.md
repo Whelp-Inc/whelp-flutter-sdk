@@ -1,3 +1,6 @@
+## 0.2.2
+- Open external links using in-app `SafariViewController` on `iOS` and `ChromeCustomTabs` on `Android`.
+
 ## 0.2.1
 
 - Added `email` property to `WhelpUser`
