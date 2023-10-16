@@ -1,3 +1,7 @@
+## 0.3.0
+- Fixed some keyboard issues for better UX.
+- `WhelpView` replaced with `WhelpScaffold`. You can supply your own `AppBar` directly.
+
 ## 0.2.2
 - Open external links using in-app `SafariViewController` on `iOS` and `ChromeCustomTabs` on `Android`.
 

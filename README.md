@@ -19,7 +19,7 @@ To use this package, add `whelp_flutter_sdk` as a dependency in your `pubspec.ya
 dependencies:
   flutter:
     sdk: flutter
-  whelp_flutter_sdk: ^0.2.0
+  whelp_flutter_sdk: ^0.3.0
 ```
 
 Then, run flutter pub get in your terminal to install the package.
@@ -84,7 +84,10 @@ final WhelpConfig config = WhelpConfig(
 4. Create a `WhelpView` widget and pass the user and config as parameters and place it in your app's widget tree:
 
 ```dart
-WhelpView(
+WhelpScaffold(
+  appBar: AppBar(
+    title: Text('Whelp Live Chat'),
+  ),
   user: user,
   config: config,
 )
