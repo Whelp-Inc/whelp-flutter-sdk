@@ -77,9 +77,13 @@ final WhelpConfig config = WhelpConfig(
   appId: 'your_app_id',
   apiKey: 'your_api_key',
   deviceId: 'device_id'
-  disableMoreButton: true,
+  // disableMoreButton: true,
+  // disableEmojiPicker: true,
 );
 ```
+
+Notice that there are two optional parameters that can be used to disable the more button and emoji picker in the live chat interface.
+The emoji picker is best disabled on mobile because all emojis are supported by the mobile keyboard. But if you have a good reason to enable it, you can do so by setting the `disableEmojiPicker` parameter to `false`.
 
 4. Create a `WhelpView` widget and pass the user and config as parameters and place it in your app's widget tree:
 
