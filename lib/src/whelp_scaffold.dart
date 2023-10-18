@@ -80,6 +80,7 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
     // Retrieve the URL to the live chat interface through WhelpService.
     final url = await WhelpService.instance.authenticate(
       disableMoreButton: widget.config.disableMoreButton,
+      disableEmojiPicker: widget.config.disableEmojiPicker,
       fullName: widget.user.fullName,
       phoneNumber: widget.user.phoneNumber,
       email: widget.user.email,
