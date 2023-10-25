@@ -1,3 +1,13 @@
+## 0.3.1
+- Added `WhelpConfig#disableEmojiPicker` property to disable emoji picker in the chat interface for a better UX. By default, it is set to `true`.
+
+## 0.3.0
+- Fixed some keyboard issues for better UX.
+- `WhelpView` replaced with `WhelpScaffold`. You can supply your own `AppBar` directly.
+
+## 0.2.2
+- Open external links using in-app `SafariViewController` on `iOS` and `ChromeCustomTabs` on `Android`.
+
 ## 0.2.1
 
 - Added `email` property to `WhelpUser`

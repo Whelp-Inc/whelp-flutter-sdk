@@ -41,6 +41,7 @@ class WhelpService {
   /// Returns a Future that completes with the URL to the live chat interface upon successful authentication.
   Future<LiveChatUrl> authenticate({
     required bool disableMoreButton,
+    required bool disableEmojiPicker,
     required String fullName,
     required String? phoneNumber,
     required String? email,
@@ -54,6 +55,7 @@ class WhelpService {
 
     final body = {
       'disableMoreButton': disableMoreButton,
+      'disableEmojiPicker': disableEmojiPicker,
       "contact": {
         "fullname": fullName,
         "phone": phoneNumber,
@@ -88,7 +90,11 @@ class WhelpService {
       body: bodyDecoded,
     );
 
-    return jsonDecode(result.body)['url'];
+    final url = jsonDecode(result.body)['url'];
+
+    debugPrint('WhelpService: $url');
+
+    return url;
   }
 
   /// Generates the authentication hash using the given [body], [appId], and [apiKey].
