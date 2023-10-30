@@ -42,6 +42,7 @@ class WhelpService {
   Future<LiveChatUrl> authenticate({
     required bool disableMoreButton,
     required bool disableEmojiPicker,
+    required bool disableSounds,
     required String fullName,
     required String? phoneNumber,
     required String? email,
@@ -50,12 +51,15 @@ class WhelpService {
     required String appId,
     required String apiKey,
     required String? deviceId,
+    required String? headerTitle,
   }) async {
     final endpoint = Uri.parse('https://widget-api.getwhelp.com/sdk/auth');
 
     final body = {
       'disableMoreButton': disableMoreButton,
       'disableEmojiPicker': disableEmojiPicker,
+      'disableSounds': disableSounds,
+      'headTitle': headerTitle,
       "contact": {
         "fullname": fullName,
         "phone": phoneNumber,
@@ -67,6 +71,8 @@ class WhelpService {
       'language': language
     };
     final bodyDecoded = jsonEncode(body);
+
+    debugPrint(bodyDecoded);
 
     final hash = _generateWhelpHash(
       body: bodyDecoded,
