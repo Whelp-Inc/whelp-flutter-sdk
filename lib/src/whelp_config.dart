@@ -5,6 +5,8 @@ class WhelpConfig {
     this.deviceId,
     this.disableMoreButton = true,
     this.disableEmojiPicker = true,
+    this.disableSounds,
+    this.headerTitle,
   });
 
   final String appId;
@@ -12,4 +14,6 @@ class WhelpConfig {
   final String? deviceId;
   final bool disableMoreButton;
   final bool disableEmojiPicker;
+  final bool? disableSounds;
+  final String? headerTitle;
 }
