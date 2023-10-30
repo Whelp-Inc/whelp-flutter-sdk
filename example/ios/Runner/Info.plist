@@ -26,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera permission is required for live chat media attachments.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo library permission is required for live chat media attachments.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -47,12 +51,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
-	<!-- for whelp live chat -->
-	<key>NSCameraUsageDescription</key>
-    <string>Camera permission is required for live chat media attachments.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Photo library permission is required for live chat media attachments.</string>
-	
 </dict>
 </plist>
