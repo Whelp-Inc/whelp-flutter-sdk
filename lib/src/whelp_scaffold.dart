@@ -83,7 +83,7 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
   Widget build(BuildContext context) {
     return defaultTargetPlatform == TargetPlatform.iOS
         ? Material(
-            color: Colors.white,
+            color: widget.placeholderColor,
             child: Column(
               children: [
                 if (widget.appBar != null) widget.appBar!,
@@ -107,8 +107,9 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
             ),
           )
         : Scaffold(
-            // color: Colors.white,
+            backgroundColor: widget.placeholderColor,
             resizeToAvoidBottomInset: true,
+            appBar: widget.appBar,
             body: _url == null
                 ? widget.loadingBuilder?.call(context) ??
                     const Center(
