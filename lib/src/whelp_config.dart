@@ -8,6 +8,8 @@ class WhelpConfig {
     this.disableSounds,
     this.headerTitle,
     this.onLog,
+    this.activeStatus,
+    this.awayStatus,
   });
 
   final String appId;
@@ -18,4 +20,6 @@ class WhelpConfig {
   final bool? disableSounds;
   final String? headerTitle;
   final Function(String message)? onLog;
+  final String? activeStatus;
+  final String? awayStatus;
 }

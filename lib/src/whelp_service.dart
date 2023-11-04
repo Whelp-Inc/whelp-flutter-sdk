@@ -52,6 +52,8 @@ class WhelpService {
     required String apiKey,
     required String? deviceId,
     required String? headerTitle,
+    required String? activeStatus,
+    required String? awayStatus,
     required Function(String message)? onLog,
   }) async {
     onLog?.call('Authenticating user...');
@@ -63,6 +65,8 @@ class WhelpService {
       'disableEmojiPicker': disableEmojiPicker,
       'disableSounds': disableSounds,
       'headTitle': headerTitle,
+      'headActivityOn': activeStatus,
+      'headActivityOff': awayStatus,
       "contact": {
         "fullname": fullName,
         "phone": phoneNumber,

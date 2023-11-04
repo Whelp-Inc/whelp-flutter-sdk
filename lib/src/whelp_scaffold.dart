@@ -76,6 +76,8 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
       apiKey: widget.config.apiKey,
       deviceId: widget.config.deviceId,
       headerTitle: widget.config.headerTitle,
+      activeStatus: widget.config.activeStatus,
+      awayStatus: widget.config.awayStatus,
       onLog: widget.config.onLog,
     );
 
