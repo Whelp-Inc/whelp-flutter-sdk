@@ -1,6 +1,8 @@
 ## 0.4.1
 
 - Added an interactive example app using which you can play around with the SDK/Live Chat.
+- Fix: `AppBar` not visible on `Android`.
+- Fix: background color until web view is loaded.
 
 ## 0.4.0
 
