@@ -7,6 +7,7 @@ class WhelpConfig {
     this.disableEmojiPicker = true,
     this.disableSounds,
     this.headerTitle,
+    this.onLog,
   });
 
   final String appId;
@@ -16,4 +17,5 @@ class WhelpConfig {
   final bool disableEmojiPicker;
   final bool? disableSounds;
   final String? headerTitle;
+  final Function(String message)? onLog;
 }

@@ -52,7 +52,10 @@ class WhelpService {
     required String apiKey,
     required String? deviceId,
     required String? headerTitle,
+    required Function(String message)? onLog,
   }) async {
+    onLog?.call('Authenticating user...');
+
     final endpoint = Uri.parse('https://widget-api.getwhelp.com/sdk/auth');
 
     final body = {
@@ -71,8 +74,6 @@ class WhelpService {
       'language': language
     };
     final bodyDecoded = jsonEncode(body);
-
-    debugPrint(bodyDecoded);
 
     final hash = _generateWhelpHash(
       body: bodyDecoded,
@@ -96,9 +97,9 @@ class WhelpService {
       body: bodyDecoded,
     );
 
-    final url = jsonDecode(result.body)['url'];
+    onLog?.call('Got response from Whelp API = ${result.statusCode}');
 
-    debugPrint('WhelpService: $url');
+    final url = jsonDecode(result.body)['url'];
 
     return url;
   }

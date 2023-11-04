@@ -49,6 +49,8 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
   void initState() {
     super.initState();
 
+    widget.config.onLog?.call('Initializing WhelpScaffold...');
+
     // Call the authentication process after the widget is built.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _authenticateUser();
@@ -74,9 +76,12 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
       apiKey: widget.config.apiKey,
       deviceId: widget.config.deviceId,
       headerTitle: widget.config.headerTitle,
+      onLog: widget.config.onLog,
     );
 
     setState(() => _url = Uri.parse(url));
+
+    widget.config.onLog?.call('User authenticated successfully');
   }
 
   @override
