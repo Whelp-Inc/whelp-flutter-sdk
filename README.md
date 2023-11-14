@@ -5,7 +5,7 @@
 
 Whelp Flutter Live Chat Package is a Flutter library that allows you to integrate a live chat feature into your Flutter applications using the Whelp service.
 
-For native Android and iOS applications, please refer to the [Android](https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/doc/native_android.md) and [iOS](https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/doc/native_ios.md) documentation.
+For native Android and iOS applications, please refer to the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/doc/native_android.md" target="_blank">Android</a> and <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/doc/native_ios.md">iOS</a> documentation.
 
 ## ⚠️ Note
 
@@ -86,7 +86,7 @@ final WhelpConfig config = WhelpConfig(
 );
 ```
 
-- If you couldn't find your `APP_ID` and `API_KEY` credentials on whelp platform, consider contacting the customer support on the [website](https://whelp.co) which is also powered by whelp 😎
+- If you couldn't find your `APP_ID` and `API_KEY` credentials on whelp platform, consider contacting the customer support on the <a href="https://whelp.co" target="_blank">website</a> which is also powered by whelp 😎
 - Notice that there are two optional parameters that can be used to disable the more button and emoji picker in the live chat interface.
 The emoji picker is best disabled on mobile because all emojis are supported by the mobile keyboard. But if you have a good reason to enable it, you can do so by setting the `disableEmojiPicker` parameter to `false`.
 
@@ -106,11 +106,11 @@ WhelpScaffold(
 
 ## 🕹️ Example
 
-For a more detailed example, check the [example](https://github.com/whelp/whelp_flutter_sdk) directory in this repository.
+For a more detailed example, check the <a href="https://github.com/whelp/whelp_flutter_sdk" target="_blank">example</a> directory in this repository.
 
 ## 📄 License
 This package is open-source and released under the MIT License.
 
 ## 🙏 Contributing
 
-Please report any issues or feature requests on the (GitHub repository)[https://github.com/Whelp-Inc/whelp-flutter-sdk]. Contributions are welcome.
+Please report any issues or feature requests on the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk" target="_blank">GitHub repository</a>. Contributions are welcome.
