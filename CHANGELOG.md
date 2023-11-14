@@ -1,3 +1,7 @@
+## 0.4.2
+
+- Update README and add documentation for native iOS applications.
+
 ## 0.4.1
 
 - Added an interactive example app using which you can play around with the SDK/Live Chat.
