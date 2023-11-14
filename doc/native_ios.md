@@ -1,21 +1,26 @@
 # Whelp Flutter SDK for native iOS applications
 
-This README provides instructions for adding the Whelp Live Chat Flutter module to an iOS app.
+This document describes how to integrate Whelp Flutter SDK into native iOS mobile applications.
+
+## 👟 Before you begin 
+Consider all sections below as a guide that you should just read with some popcorn 🍿. At the end check the [🕹️ Example](#-example) section for a complete example and then modify it to suit your architectural needs with some coffee ☕️ if not tea 🍵.
 
 ## 📋 Table of Contents
-
 
 * [📦 Adding Frameworks](#-adding-frameworks)
 * [🚨 Important notes](#-important-notes)
 * [📞 Communication with the SDK](#-communication-with-the-sdk)
   * [📥 Receiving messages from Flutter](#-receiving-messages-from-flutter)
   * [📤 Sending messages to Flutter](#-sending-messages-to-flutter)
-* [📱 Example](#-example)
-
+* [🕹️ Example](#-example)
+* [📄 License](#-license)
+* [🙏 Contributing](#-contributing)
 
 ## 📦 Adding Frameworks
 
-Find Framework files in this <a href="https://drive.google.com/drive/folders/150nBQZJO-1vVcmLxyWVxKhguaPAtD92t?usp=sharing" target="_blank">link</a>
+First, you need to add the Framework files to your project. For now you need to do this manually by downloading from this <a href="https://drive.google.com/drive/folders/150nBQZJO-1vVcmLxyWVxKhguaPAtD92t?usp=sharing" target="_blank">link</a>. We're working on making this process easier and automated in the future.
+
+After you obtain the Framework files, you need to add them to your project:
 
 1. Open the iOS project in Xcode.
 2. Select the target.
@@ -28,7 +33,7 @@ Find Framework files in this <a href="https://drive.google.com/drive/folders/150
 For video instructions, see <a href="https://www.youtube.com/watch?v=1p8ZaRlqyq4" target="_blank">video instructions</a>.
 
 ## 🚨 Important notes
-- For better performance it's recommended to use one `flutterEngine` instance for the whole application not to create a new instance every time you open the chat.
+- For better performance it's recommended to use one `flutterEngine` instance for the whole application and call `flutterEngine.run()` once, not to create a new instance every time you open the live chat.
 
 ## 📞 Communication with the SDK
 Communication with the SDK is done via `FlutterMethodChannel` and the channel name is `whelp`. Both native and Flutter (in this context Flutter is the Live Chat) sides can send messages to each other via this channel. 
@@ -121,7 +126,7 @@ let data: [String: Any] = [
 methodChannel.invokeMethod("start", arguments: data)
 ```
 
-## 📱 Example
+## 🕹️ Example
 
 The example code below is a minimal example of how to open the chat screen and you can change it to suit your needs as long as you protect the main logic.
 
@@ -218,3 +223,9 @@ struct ContentView: View {
 
 }
 ```
+
+## 📄 License
+This package is open-source and released under the MIT License.
+
+## 🙏 Contributing
+Please report any issues or feature requests on the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk" target="_blank">GitHub repository</a>. Contributions are welcome.
