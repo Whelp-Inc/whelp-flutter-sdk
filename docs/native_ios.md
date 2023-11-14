@@ -2,7 +2,7 @@
 
 This README provides instructions for adding the Whelp Live Chat Flutter module to an iOS app.
 
-## Adding Frameworks
+## 📦 Adding Frameworks
 
 1. Open the iOS project in Xcode.
 2. Select the target.
@@ -14,10 +14,10 @@ This README provides instructions for adding the Whelp Live Chat Flutter module 
 
 For video instructions, see [video instructions](https://drive.google.com/file/d/1yKKKpVYM3bbjsk1ch1hstmGSgZ640IDj/view).
 
-## Important notes
+## 🚨 Important notes
 - For better performance it's recommended to use one `flutterEngine` instance for the whole application not to create a new instance every time you open the chat.
 
-## Opening the chat screen
+## 📱 Example
 
 The example code below is a minimal example of how to open the chat screen and you can change it to suit your needs as long as you protect the main logic.
 
