@@ -1,17 +1,17 @@
-# Whelp Flutter Live Chat Package
+# Whelp Live Chat for Flutter
 
 [![Pub Version](https://img.shields.io/pub/v/whelp_flutter_sdk)](https://pub.dev/packages/whelp_flutter_sdk)
 [![License](https://img.shields.io/github/license/your_username/whelp_flutter_sdk)](https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/LICENSE)
 
 Whelp Flutter Live Chat Package is a Flutter library that allows you to integrate a live chat feature into your Flutter applications using the Whelp service.
 
-## Features
+For native Android and iOS applications, please refer to the [Android](https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/docs/native_android.md) and [iOS](https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/docs/native_ios.md) documentation.
 
-- Display a live chat interface provided by the Whelp.
-- Authenticate users for live chat functionality.
-- Customizable for tailoring the live chat interface to your app's branding.
+## ⚠️ Note
 
-## Installation
+Before you use the package, you must be enrolled to [Whelp](https://whelp.co) in order to obtain an `APP_ID` and `API_KEY` on which the SDK depends on to function. 
+
+## 🪚 Installation
 
 To use this package, add `whelp_flutter_sdk` as a dependency in your `pubspec.yaml` file:
 
@@ -19,14 +19,14 @@ To use this package, add `whelp_flutter_sdk` as a dependency in your `pubspec.ya
 dependencies:
   flutter:
     sdk: flutter
-  whelp_flutter_sdk: ^0.3.0
+  whelp_flutter_sdk: ^0.4.1
 ```
 
-Then, run flutter pub get in your terminal to install the package.
+Then, run `flutter pub get` in your terminal to install the package.
 
-## Configuration
+## ⚙️ Configuration
 
-In order to be able to use media attachments in the live chat interface, you must add the following permissions to your app's `AndroidManifest.xml` for Android and `Info.plist` for iOS:
+In order to be able to use media attachments in the live chat, it's required to add the following permissions to your app's `AndroidManifest.xml` for Android and `Info.plist` for iOS:
 
 ### Android
 
@@ -46,11 +46,6 @@ In order to be able to use media attachments in the live chat interface, you mus
 ```
 
 ## Usage
-
-To use the Whelp Flutter Live Chat Package, follow these steps:
-
-Import the necessary libraries:
-
 1. Import the necessary libraries:
 
 ```dart 
@@ -61,6 +56,7 @@ import 'package:whelp_flutter_sdk/whelp_flutter_sdk.dart';
     
 ```dart
 final WhelpUser user = WhelpUser(
+  email: 'john@doe.com',
   fullName: 'John Doe',
   phoneNumber: '+1234567890',
   language: 'EN',
@@ -68,21 +64,30 @@ final WhelpUser user = WhelpUser(
 );
 ```
 
-Here the `identifier` is based on which the identity and uniquness of the user is determined: if matched, previous chats of the user will be loaded, otherwise a new chat will be created.
+- Here the `identifier` is based on which the identity and uniquness of the user is determined: if matched, previous chats of the user will be loaded, otherwise a new chat will be created.  
+- Either of `phoneNumber` and `email` can be null. In case both of them are null you might not be able to user's previous chat history on every new launch.
 
-3. Create a `WhelpConfig` instance with your Whelp application ID and API key:
+3. Create a `WhelpConfig` instance with your `APP_ID` and `API_KEY`:
     
 ```dart
 final WhelpConfig config = WhelpConfig(
   appId: 'your_app_id',
   apiKey: 'your_api_key',
-  deviceId: 'device_id'
-  // disableMoreButton: true,
-  // disableEmojiPicker: true,
+  deviceId: '{fcm_token}',
+  disableMoreButton: true,
+  disableEmojiPicker: true,
+  disableSounds: true,
+  headerTitle: 'What do you want to talk us about?',
+  onLog: (String message) {
+    log(message, name: 'WHELP');
+  },
+  activeStatus: 'We are online',
+  awayStatus: 'We are offline',
 );
 ```
 
-Notice that there are two optional parameters that can be used to disable the more button and emoji picker in the live chat interface.
+- If you couldn't find your `APP_ID` and `API_KEY` credentials on whelp platform, consider contacting the customer support on the [website](https://whelp.co) which is also powered by whelp 😎
+- Notice that there are two optional parameters that can be used to disable the more button and emoji picker in the live chat interface.
 The emoji picker is best disabled on mobile because all emojis are supported by the mobile keyboard. But if you have a good reason to enable it, you can do so by setting the `disableEmojiPicker` parameter to `false`.
 
 4. Create a `WhelpView` widget and pass the user and config as parameters and place it in your app's widget tree:
@@ -99,17 +104,13 @@ WhelpScaffold(
 
 5. Run the app, and the Whelp live chat interface will be displayed.
 
-## Example
+## 🕹️ Example
 
-For a more detailed example, check the example directory in this repository.
+For a more detailed example, check the [example](https://github.com/whelp/whelp_flutter_sdk) directory in this repository.
 
-## Important Note
-
-To use the live chat functionality, you must sign up for the Whelp and obtain your application ID and API key. Visit Whelp's official website to create an account and get started.
-
-## License
+## 📄 License
 This package is open-source and released under the MIT License.
 
-## Issues and Contributions
+## 🙏 Contributing
 
-Please report any issues or feature requests on the GitHub repository. Contributions are welcome! If you want to contribute to this project, create a pull request, and we'll review it together.
+Please report any issues or feature requests on the (GitHub repository)[https://github.com/Whelp-Inc/whelp-flutter-sdk]. Contributions are welcome.
