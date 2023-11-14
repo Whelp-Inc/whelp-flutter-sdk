@@ -2,7 +2,20 @@
 
 This README provides instructions for adding the Whelp Live Chat Flutter module to an iOS app.
 
+## 📋 Table of Contents
+
+
+* [📦 Adding Frameworks](#-adding-frameworks)
+* [🚨 Important notes](#-important-notes)
+* [📞 Communication with the SDK](#-communication-with-the-sdk)
+  * [📥 Receiving messages from Flutter](#-receiving-messages-from-flutter)
+  * [📤 Sending messages to Flutter](#-sending-messages-to-flutter)
+* [📱 Example](#-example)
+
+
 ## 📦 Adding Frameworks
+
+Find Framework files in this <a href="https://drive.google.com/drive/folders/150nBQZJO-1vVcmLxyWVxKhguaPAtD92t?usp=sharing" target="_blank">link</a>
 
 1. Open the iOS project in Xcode.
 2. Select the target.
@@ -16,6 +29,97 @@ For video instructions, see <a href="https://www.youtube.com/watch?v=1p8ZaRlqyq4
 
 ## 🚨 Important notes
 - For better performance it's recommended to use one `flutterEngine` instance for the whole application not to create a new instance every time you open the chat.
+
+## 📞 Communication with the SDK
+Communication with the SDK is done via `FlutterMethodChannel` and the channel name is `whelp`. Both native and Flutter (in this context Flutter is the Live Chat) sides can send messages to each other via this channel. 
+
+Create a `FlutterMethodChannel` instance and set a `FlutterMethodCallHandler` to it to receive messages from Flutter:
+
+```swift
+let methodChannel = FlutterMethodChannel(
+    name: "whelp",
+    binaryMessenger: flutterViewController.binaryMessenger
+)
+```
+
+### 📥 Receiving messages from Flutter
+To receive messages from Flutter, you need to set a `FlutterMethodCallHandler` to the channel: 
+
+#### - onLog 
+Called when the SDK wants to log something. You can use this to log errors or warnings. 
+
+```swift
+methodChannel.setMethodCallHandler { call, result in
+    if call.method == "onLog" {
+        if let arguments = call.arguments as? [String: Any],
+            let logMessage = arguments["message"] as? String {
+            print(logMessage)
+            
+            if let stack = arguments["stack"] as? String {
+                print(stack)
+            }
+        }
+    }
+}
+```
+
+#### - close
+Called when the user clicks the close button on the chat screen. When received, you should close the chat screen. This is made manually because the SDK doesn't know how you want to close the chat screen, maybe some animations?
+
+```swift
+methodChannel.setMethodCallHandler { call, result in
+    if call.method == "close" {
+        flutterViewController.dismiss(animated: true)
+    }
+}
+```
+
+#### - handleUrl
+Called when the user clicks a link in the chat screen. This option is useful if you want some links to be opened in Safari or in your own webview or even deep link to another screen in your app. 
+
+```swift
+methodChannel.setMethodCallHandler { call, result in
+    if call.method == "handleUrl" {
+        if let arguments = call.arguments as? [String: Any],
+            let url = arguments["url"] as? String {
+            // Handle the url here.
+        }
+    }
+}
+```
+
+### 📤 Sending messages to Flutter
+To send messages to Flutter, you need to call the `invokeMethod` method of the channel: 
+
+#### - start
+This method should be called with data shown below to configure the live chat before opening:
+
+```swift
+let data: [String: Any] = [
+  // Replace with your own App ID and API Key from Whelp.
+  "appId": "{appId}",
+  "apiKey": "{apiKey}",
+
+  // Title displayed under the header on the chat screen.
+  "headerTitle": "Müraciətiniz bizim üçün dəyərlidir 💙",
+  
+  // User information for authentication.
+  "fullName": "John",
+  "email": "john@example.com",
+  "phoneNumber": "+994501234567",
+  "language": "AZ",
+
+  // Identifier is based on which the identity and uniquness of the user is determined: 
+  // if matched: previous chats of the user will be loaded, 
+  // Else: a new chat will be created.
+  "identifier": "email",
+
+  // Can be Firebase Cloud Messaging token or any other unique identifier.
+  "deviceId": "{fcm_token}"
+]
+
+methodChannel.invokeMethod("start", arguments: data)
+```
 
 ## 📱 Example
 
@@ -106,7 +210,7 @@ struct ContentView: View {
         "deviceId": "{fcm_token}"
       ]
 
-    methodChannel.invokeMethod("configure", arguments: data)
+    methodChannel.invokeMethod("start", arguments: data)
 
     rootViewController.present(flutterViewController, animated: true)
     
