@@ -106,13 +106,17 @@ let data: [String: Any] = [
   "apiKey": "{apiKey}",
 
   // Title displayed under the header on the chat screen.
-  "headerTitle": "Müraciətiniz bizim üçün dəyərlidir 💙",
+  "headerTitle": "How can we help you?",
+
+  // Status messages displayed on the chat screen.
+  "activeStatus": "We are here to help you!",
+  "awayStatus": "We are away at the moment",
   
   // User information for authentication.
-  "fullName": "John",
-  "email": "john@example.com",
+  "fullName": "Alan Watts",
+  "email": "alan@watts.zen"
   "phoneNumber": "+994501234567",
-  "language": "AZ",
+  "language": "EN",
 
   // Identifier is based on which the identity and uniquness of the user is determined: 
   // if matched: previous chats of the user will be loaded, 
@@ -130,97 +134,189 @@ methodChannel.invokeMethod("start", arguments: data)
 
 The example code below is a minimal example of how to open the chat screen and you can change it to suit your needs as long as you protect the main logic.
 
+App.swift
+
+```swift
+import SwiftUI
+import Flutter
+
+@main
+struct MyApp: App {
+  
+  // A flag indicating whether the Flutter engine has been run.
+  static var hasFlutterEngineRun = false
+  
+  // Create a single instance of FlutterEngine.
+  private static let flutterEngine = FlutterEngine(name: "whelp")
+  
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(FlutterManager(engine: Self.flutterEngine))
+    }
+  }
+}
+```
+
+ContentView.swift
+
 ```swift
 import SwiftUI
 import Flutter
 import FlutterPluginRegistrant
 
-class FlutterDependencies: ObservableObject {
-  let flutterEngine = FlutterEngine(name: "whelp")
+struct ContentView: View {
+  @EnvironmentObject var flutterManager: FlutterManager
   
-  init(){
-    flutterEngine.run()
-    GeneratedPluginRegistrant.register(with: self.flutterEngine);
+  var body: some View {
+    NavigationView {
+      VStack {
+        Button("Open Flutter Module") {
+          flutterManager.startFlutter()
+        }
+      }
+      .navigationTitle("Flutter in SwiftUI")
+    }
   }
 }
 
-@main
-struct MyApp: App {
- @StateObject var flutterDependencies = FlutterDependencies()
+// A manager class responsible for handling Flutter-related functionality.
+class FlutterManager: ObservableObject {
+  // The Flutter engine used to run Flutter code.
+  private let flutterEngine: FlutterEngine
+  
+  // The method channel for communication between Flutter and SwiftUI.
+  private var methodChannel: FlutterMethodChannel?
+  
+  // The root view controller of the SwiftUI app.
+  private weak var rootViewController: UIViewController?
+  
+  // The Flutter view controller used to present the Flutter module.
+  private var flutterViewController: FlutterViewController?
+  
+  // Initializes the FlutterManager with a given Flutter engine.
+  init(engine: FlutterEngine) {
+    self.flutterEngine = engine
+  }
+  
+  // Starts the Flutter module and presents it when the button is tapped.
+  func startFlutter() {
+    // Run FlutterEngine only if it hasn't been started
+    if !MyApp.hasFlutterEngineRun {
+      DispatchQueue.main.async {
+        self.flutterEngine.run()
+        GeneratedPluginRegistrant.register(with: self.flutterEngine)
+        MyApp.hasFlutterEngineRun = true
+        self.setupMethodChannel()
+      }
+    }
+    
+    guard let windowScene = UIApplication.shared.connectedScenes.first(
+      where: { $0.activationState == .foregroundActive && $0 is UIWindowScene }
+    ) as? UIWindowScene,
+          let window = windowScene.windows.first(where: \.isKeyWindow),
+          let rootViewController = window.rootViewController
+    else {
+      return
+    }
+    
+    self.rootViewController = rootViewController
+    
+    let data = prepareFlutterData()
+    
+    DispatchQueue.main.async {
+      self.methodChannel?.invokeMethod("start", arguments: data)
+      
+      // Check if the FlutterViewController has been created
+      if self.flutterViewController == nil {
+        self.flutterViewController = FlutterViewController(
+          engine: self.flutterEngine,
+          nibName: nil,
+          bundle: nil
+        )
+      }
+      
+      rootViewController.present(self.flutterViewController!, animated: true)
+    }
+  }
+  
+  // Prepares data to be sent to the Flutter module.
+  private func prepareFlutterData() -> [String: Any] {
+    return [
+      "appId": "{appId}",
+      "apiKey": "{apiKey}",
+      "headerTitle": "How can we help you?",
+      "activeStatus": "We are here to help you!",
+      "awayStatus": "We are away at the moment",
+      "identifier": "email",
+      "fullName": "Alan Watts",
+      "email": "alan@watts.zen",
+      "phoneNumber": "+994501234567",
+      "language": "EN",
+      "deviceId": "{fcm_token}"
+    ]
+  }
+  
+  // Sets up the method channel for communication with Flutter.
+  private func setupMethodChannel() {
+    if methodChannel == nil {
+      methodChannel = FlutterMethodChannel(
+        name: "whelp",
+        binaryMessenger: flutterEngine.binaryMessenger
+      )
+      
+      methodChannel?.setMethodCallHandler { [weak self] call, result in
+        self?.handleMethodCall(call, result: result)
+      }
+    }
+  }
+  
+  // Handles method calls from Flutter.
+  private func handleMethodCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    switch call.method {
+    case "onLog":
+      handleLogCall(call, result: result)
+    case "close":
+      handleCloseCall(call, result: result)
+    case "handleUrl":
+      handleUrlCall(call, result: result)
+    default:
+      result(FlutterMethodNotImplemented)
+    }
+  }
+  
+  // Handles log method calls from Flutter.
+  private func handleLogCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    if let arguments = call.arguments as? [String: Any],
+       let logMessage = arguments["message"] as? String {
+      print(logMessage)
+      
+      if let stack = arguments["stack"] as? String {
+        print(stack)
+      }
+    }
+    result(nil)
+  }
+  
+  // Handles close method calls from Flutter.
+  private func handleCloseCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    DispatchQueue.main.async {
+      self.rootViewController?.dismiss(animated: true, completion: nil)
+      // Additional cleanup if needed...
 
-  var body: some Scene {
-     WindowGroup {
-       ContentView().environmentObject(flutterDependencies)
-     }
-   }
-}
-```
-
-```swift
-import SwiftUI
-import Flutter
-
-struct ContentView: View {
-  @EnvironmentObject var flutterDependencies: FlutterDependencies
-  var body: some View {
-    Button("Open Live Chat") {
-      startFlutter()
+      result(nil)
     }
   }
 
-  func startFlutter() {
-      guard
-          let windowScene = UIApplication.shared.connectedScenes
-              .first(where: { $0.activationState == .foregroundActive && $0 is UIWindowScene }) as? UIWindowScene,
-          let window = windowScene.windows.first(where: \.isKeyWindow),
-          let rootViewController = window.rootViewController
-      else { return }
-
-      // Create the FlutterViewController.
-      let flutterViewController = FlutterViewController(
-          engine: flutterDependencies.flutterEngine,
-          nibName: nil,
-          bundle: nil
-      )
-      flutterViewController.modalPresentationStyle = .pageSheet
-      flutterViewController.isViewOpaque = false
-
-      // Create a FlutterMethodChannel to send data to Flutter.
-      let methodChannel = FlutterMethodChannel(
-          name: "whelp",
-          binaryMessenger: flutterViewController.binaryMessenger
-      )
+  // Handles handleUrl method calls from Flutter.
+  private func handleUrlCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    if let arguments = call.arguments as? [String: Any],
+       let url = arguments["url"] as? String {
+      // Handle the url here.
+    }
     
-      // Create a dictionary to hold the data to be sent.
-      let data: [String: Any] = [
-        // Replace with your own App ID and API Key from Whelp.
-        "appId": "{appId}",
-        "apiKey": "{apiKey}",
-
-        // Title displayed under the header on the chat screen.
-        "headerTitle": "Müraciətiniz bizim üçün dəyərlidir 💙",
-        
-        // User information for authentication.
-        "fullName": "John",
-        "email": "john@example.com",
-        "phoneNumber": "+994501234567",
-        "language": "AZ",
-
-        // Identifier is based on which the identity and uniquness of the user is determined: 
-        // if matched: previous chats of the user will be loaded, 
-        // Else: a new chat will be created.
-        "identifier": "email",
-
-        // Can be Firebase Cloud Messaging token or any other unique identifier.
-        "deviceId": "{fcm_token}"
-      ]
-
-    methodChannel.invokeMethod("start", arguments: data)
-
-    rootViewController.present(flutterViewController, animated: true)
-    
+    result(nil)
   }
-
 }
 ```
 
