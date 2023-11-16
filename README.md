@@ -70,24 +70,29 @@ final WhelpUser user = WhelpUser(
     
 ```dart
 final WhelpConfig config = WhelpConfig(
-  appId: 'your_app_id',
-  apiKey: 'your_api_key',
+  // Replace the placeholders with your APP_ID and API_KEY
+  appId: '{app_id}',
+  apiKey: '{api_key}',
+
+  // Can be Firebase Cloud Messaging token or any other unique identifier.
   deviceId: '{fcm_token}',
   disableMoreButton: true,
   disableEmojiPicker: true,
   disableSounds: true,
+
+  // Title displayed under the header
   headerTitle: 'What do you want to talk us about?',
+
+  // Log messages from the SDK (for debugging purposes)
   onLog: (String message) {
     log(message, name: 'WHELP');
   },
+
+  // Status messages displayed on the header
   activeStatus: 'We are online',
   awayStatus: 'We are offline',
 );
 ```
-
-- If you couldn't find your `APP_ID` and `API_KEY` credentials on whelp platform, consider contacting the customer support on the <a href="https://whelp.co" target="_blank">website</a> which is also powered by whelp 😎
-- Notice that there are two optional parameters that can be used to disable the more button and emoji picker in the live chat interface.
-The emoji picker is best disabled on mobile because all emojis are supported by the mobile keyboard. But if you have a good reason to enable it, you can do so by setting the `disableEmojiPicker` parameter to `false`.
 
 4. Create a `WhelpView` widget and pass the user and config as parameters and place it in your app's widget tree:
 
@@ -108,7 +113,7 @@ WhelpScaffold(
 For a more detailed example, check the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk" target="_blank">example</a> directory in this repository.
 
 ## 📄 License
-This package is open-source and released under the MIT License.
+This package is open-source and released under the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/LICENSE" target="_blank">MIT License</a>.
 
 ## 🙏 Contributing
 
