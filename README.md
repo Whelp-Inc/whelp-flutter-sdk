@@ -110,7 +110,7 @@ WhelpScaffold(
 
 ## 🕹️ Example
 
-For a more detailed example, check the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk" target="_blank">example</a> directory in this repository.
+For a more detailed example, check the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/example/lib/main.dart" target="_blank">example</a> directory in this repository.
 
 ## 📄 License
 This package is open-source and released under the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/LICENSE" target="_blank">MIT License</a>.
