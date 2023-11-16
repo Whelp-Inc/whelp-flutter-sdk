@@ -101,14 +101,14 @@ This method should be called with data shown below to configure the live chat be
 
 ```swift
 let data: [String: Any] = [
-  // Replace with your own App ID and API Key from Whelp.
+  // Replace the placeholders with your APP_ID and API_KEY
   "appId": "{appId}",
   "apiKey": "{apiKey}",
 
-  // Title displayed under the header on the chat screen.
+  // Title displayed under the header
   "headerTitle": "How can we help you?",
 
-  // Status messages displayed on the chat screen.
+  // Status messages displayed on the header
   "activeStatus": "We are here to help you!",
   "awayStatus": "We are away at the moment",
   
