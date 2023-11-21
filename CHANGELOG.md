@@ -1,3 +1,7 @@
+## 0.4.3
+
+- (Yet again) Update README and add documentation for native iOS applications.
+
 ## 0.4.2
 
 - Update README and add documentation for native iOS applications.
