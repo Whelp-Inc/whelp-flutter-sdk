@@ -30,7 +30,7 @@ After you obtain the Framework files, you need to add them to your project:
 6. Expand the new phase and change destination to `Frameworks`.
 7. Drag and drop the Framework files into the new phase. These files are located in `Frameworks` folder of this repository. Use files from `Debug` folder for debug builds and files from `Release` folder for release builds.
 
-For video instructions, see <a href="https://www.youtube.com/watch?v=1p8ZaRlqyq4" target="_blank">video instructions</a>.
+For video instructions, see <a href="https://drive.google.com/file/d/1yKKKpVYM3bbjsk1ch1hstmGSgZ640IDj/view" target="_blank">video instructions</a>.
 
 ## 🚨 Important notes
 - For better performance it's recommended to use one `flutterEngine` instance for the whole application and call `flutterEngine.run()` once, not to create a new instance every time you open the live chat.
