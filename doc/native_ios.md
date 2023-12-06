@@ -124,7 +124,10 @@ let data: [String: Any] = [
   "identifier": "email",
 
   // Can be Firebase Cloud Messaging token or any other unique identifier.
-  "deviceId": "{fcm_token}"
+  "deviceId": "{fcm_token}",
+
+  // If true, the close button will be shown on the chat screen.
+  "showCloseButton": true
 ]
 
 methodChannel.invokeMethod("start", arguments: data)
@@ -253,7 +256,8 @@ class FlutterManager: ObservableObject {
       "email": "alan@watts.zen",
       "phoneNumber": "+994501234567",
       "language": "EN",
-      "deviceId": "{fcm_token}"
+      "deviceId": "{fcm_token}",
+      "showCloseButton": true
     ]
   }
   
