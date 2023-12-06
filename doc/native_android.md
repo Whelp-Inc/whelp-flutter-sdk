@@ -79,7 +79,10 @@ class MainActivity : AppCompatActivity() {
             "identifier" to "email",
 
             // Can be Firebase Cloud Messaging token or any other unique identifier.
-            "deviceId" to "{fcm_token}"
+            "deviceId" to "{fcm_token}",
+            
+            // If true, the close button will be shown on the chat screen.
+            "showCloseButton" to true,
         )
 
         methodChannel.invokeMethod("start", json)
