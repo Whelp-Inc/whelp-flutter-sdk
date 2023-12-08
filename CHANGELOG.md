@@ -1,3 +1,8 @@
+## 0.5.0
+
+- Fix camera not showing up as a media source on `Android`.
+- (Yet again) Update README and add documentation for native iOS applications.
+
 ## 0.4.3
 
 - (Yet again) Update README and add documentation for native iOS applications.

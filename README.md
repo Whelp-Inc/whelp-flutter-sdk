@@ -35,6 +35,34 @@ In order to be able to use media attachments in the live chat, it's required to 
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 
+Also, to enable picking media files not only from the gallery but also from the camera, follow the steps below:
+
+1. Add the following provider to your `AndroidManifest.xml`:
+
+```xml
+  <provider 
+    android:name="com.pichillilorenzo.flutter_inappwebview.InAppWebViewFileProvider" 
+    android:authorities="${applicationId}.flutter_inappwebview.fileprovider"
+    android:exported="false"
+    android:grantUriPermissions="true">            
+    <meta-data
+      android:name="android.support.FILE_PROVIDER_PATHS"
+      android:resource="@xml/provider_paths" />
+  </provider>
+```
+
+For more info, visit [example app's `AndroidManifest.xml` file](https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/example/android/app/src/main/AndroidManifest.xml).
+
+2. Request camera permission before you initialize the SDK:
+
+```dart
+import 'package:permission_handler/permission_handler.dart';
+
+await Permission.camera.request();
+```
+
+Make sure you do the permission handling properly.
+
 ### iOS
 
 ```xml
