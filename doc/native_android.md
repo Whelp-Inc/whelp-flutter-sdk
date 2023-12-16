@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
             
             // If true, the close button will be shown on the chat screen.
             "showCloseButton" to true,
+
+            // Uncomment line before to set on-premise base url.
+            // "baseUrl" to "https://yourdomain.com",
         )
 
         methodChannel.invokeMethod("start", json)

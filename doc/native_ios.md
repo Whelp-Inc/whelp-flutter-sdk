@@ -97,7 +97,7 @@ methodChannel.setMethodCallHandler { call, result in
 To send messages to Flutter, you need to call the `invokeMethod` method of the channel: 
 
 #### - start
-This method should be called with data shown below to configure the live chat before opening:
+This method should be called with data below to configure the live chat before opening:
 
 ```swift
 let data: [String: Any] = [
@@ -127,7 +127,10 @@ let data: [String: Any] = [
   "deviceId": "{fcm_token}",
 
   // If true, the close button will be shown on the chat screen.
-  "showCloseButton": true
+  "showCloseButton": true,
+
+  // Uncomment line before to set on-premise base url.
+  // "baseUrl": "https://yourdomain.com"
 ]
 
 methodChannel.invokeMethod("start", arguments: data)
