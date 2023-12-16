@@ -55,10 +55,11 @@ class WhelpService {
     required String? activeStatus,
     required String? awayStatus,
     required Function(String message)? onLog,
+    required String baseUrl,
   }) async {
     onLog?.call('Authenticating user...');
 
-    final endpoint = Uri.parse('https://widget-api.getwhelp.com/sdk/auth');
+    final endpoint = Uri.parse('$baseUrl/sdk/auth');
 
     final body = {
       'disableMoreButton': disableMoreButton,

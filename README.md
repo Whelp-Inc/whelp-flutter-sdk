@@ -122,6 +122,15 @@ final WhelpConfig config = WhelpConfig(
 );
 ```
 
+If you are using an on-premise Whelp instance, you can also specify the `baseUrl` parameter to `WhelpConfig.onPremise`:
+
+```dart
+final WhelpConfig config = WhelpConfig.onPremise(
+  // Same parameters as above
+  baseUrl: 'https://yourdomain.com',
+);
+```
+
 4. Create a `WhelpView` widget and pass the user and config as parameters and place it in your app's widget tree:
 
 ```dart

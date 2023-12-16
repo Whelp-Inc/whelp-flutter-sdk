@@ -79,6 +79,7 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
       activeStatus: widget.config.activeStatus,
       awayStatus: widget.config.awayStatus,
       onLog: widget.config.onLog,
+      baseUrl: widget.config.baseUrl,
     );
 
     setState(() => _url = Uri.parse(url));

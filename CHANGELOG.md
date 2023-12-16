@@ -1,3 +1,7 @@
+## 0.5.1
+
+- Add on-premise support: `WhelpConfig.onPremise()`
+
 ## 0.5.0
 
 - Fix camera not showing up as a media source on `Android`.
