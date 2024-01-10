@@ -1,3 +1,6 @@
+## 0.5.2
+- Fixed issue where the live chat was not showing up on on-premise installations.
+
 ## 0.5.1
 
 - Add on-premise support: `WhelpConfig.onPremise()`
