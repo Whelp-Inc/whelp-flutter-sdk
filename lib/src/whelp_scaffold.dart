@@ -87,6 +87,13 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
     widget.config.onLog?.call('User authenticated successfully');
   }
 
+  String get _domain {
+    final uri = Uri.parse(widget.config.baseUrl);
+    final String domain = uri.host.split('.').sublist(1).join('.');
+
+    return domain;
+  }
+
   @override
   Widget build(BuildContext context) {
     return defaultTargetPlatform == TargetPlatform.iOS
@@ -105,6 +112,7 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
                       : _WebView(
                           url: _url!,
                           onUrlClick: widget.onUrlClick,
+                          domain: _domain,
                         ),
                 ),
                 const Divider(
@@ -126,6 +134,7 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
                 : _WebView(
                     url: _url!,
                     onUrlClick: widget.onUrlClick,
+                    domain: _domain,
                   ),
           );
   }
@@ -135,10 +144,12 @@ class _WebView extends StatelessWidget {
   const _WebView({
     required this.url,
     required this.onUrlClick,
+    required this.domain,
   });
 
   final Uri url;
   final Function(String url)? onUrlClick;
+  final String domain;
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +163,8 @@ class _WebView extends StatelessWidget {
       ),
       shouldOverrideUrlLoading: (_, NavigationAction navigationAction) async {
         final url = navigationAction.request.url;
-        final allow = url.toString().contains('whelp.co') ||
+
+        final allow = url.toString().contains(domain) ||
             url.toString().contains('about:srcdoc');
 
         // If the request is a navigation to the Whelp live chat interface, allow it.
