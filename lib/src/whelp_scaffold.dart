@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:whelp_flutter_sdk/src/whelp_service.dart';
 import 'package:whelp_flutter_sdk/whelp_flutter_sdk.dart';
 
@@ -135,48 +136,168 @@ class _WhelpScaffoldState extends State<WhelpScaffold> {
                     url: _url!,
                     onUrlClick: widget.onUrlClick,
                     domain: _domain,
+                    onLog: widget.config.onLog,
                   ),
           );
   }
 }
 
-class _WebView extends StatelessWidget {
+class _WebView extends StatefulWidget {
   const _WebView({
     required this.url,
     required this.onUrlClick,
     required this.domain,
+    this.onLog,
   });
 
   final Uri url;
   final Function(String url)? onUrlClick;
   final String domain;
+  final Function(String message)? onLog;
+
+  @override
+  State<_WebView> createState() => _WebViewState();
+}
+
+class _WebViewState extends State<_WebView> {
+  InAppWebViewController? webViewController;
 
   @override
   Widget build(BuildContext context) {
     return InAppWebView(
-      initialUrlRequest: URLRequest(url: url),
+      initialUrlRequest: URLRequest(url: widget.url),
       initialOptions: InAppWebViewGroupOptions(
         crossPlatform: InAppWebViewOptions(
           transparentBackground: true,
           useShouldOverrideUrlLoading: true,
         ),
       ),
+      onConsoleMessage: (_, consoleMessage) {
+        _handleConsoleLogs(consoleMessage);
+      },
+      onWebViewCreated: (controller) {
+        webViewController = controller;
+      },
       shouldOverrideUrlLoading: (_, NavigationAction navigationAction) async {
-        final url = navigationAction.request.url;
+        final Uri? url = navigationAction.request.url;
 
-        final allow = url.toString().contains(domain) ||
-            url.toString().contains('about:srcdoc');
+        final bool allow = url.toString().contains(widget.domain) ||
+            url.toString().contains('about:srcdoc') ||
+            url.toString().contains('whelp');
 
         // If the request is a navigation to the Whelp live chat interface, allow it.
         if (allow) {
           return NavigationActionPolicy.ALLOW;
         } else {
           // Otherwise, launch the URL in the browser.
-          onUrlClick?.call(url.toString());
+          widget.onUrlClick?.call(url.toString());
 
           // Prevent all other navigations.
           return NavigationActionPolicy.CANCEL;
         }
+      },
+    );
+  }
+
+  /// Handles console logs from the WebView.
+  void _handleConsoleLogs(ConsoleMessage consoleMessage) {
+    widget.onLog?.call('console: ${consoleMessage.message}');
+
+    // All of the camera-permission-related business logics are intended for Android only.
+
+    if (defaultTargetPlatform != TargetPlatform.android) return;
+
+    if (consoleMessage.message == 'js_loaded') {
+      widget.onLog?.call('delaying checking permission...');
+
+      // Delay the permission check to make sure the Whelp SDK is fully loaded.
+      // Temporary workaround.
+      Future.delayed(const Duration(seconds: 3), () {
+        _checkCameraPermission();
+      });
+    } else if (consoleMessage.message == 'ask_permission') {
+      _handleCameraPermissions();
+    }
+  }
+
+  void _sendEvent(String event) {
+    widget.onLog?.call('sending event: $event');
+
+    webViewController?.evaluateJavascript(
+      source: "onPermissionAtth('$event')",
+    );
+  }
+
+  void _sendCameraPermissionDenied() {
+    _sendEvent('camera');
+  }
+
+  void _sendCameraPermissionGranted() {
+    _sendEvent('done');
+  }
+
+  Future<void> _checkCameraPermission() async {
+    widget.onLog?.call('handling camera permission...');
+
+    Permission.camera.status.then((status) {
+      if (status.isGranted) {
+        _sendCameraPermissionGranted();
+      } else {
+        _sendCameraPermissionDenied();
+      }
+    });
+  }
+
+  void _handleCameraPermissions() {
+    widget.onLog?.call('handling camera permission...');
+
+    Permission.camera.status.then((status) {
+      widget.onLog?.call('camera permission status: $status');
+
+      if (status.isGranted) {
+        _sendCameraPermissionGranted();
+      } else {
+        Permission.camera.request().then((status) {
+          widget.onLog?.call('camera permission status: $status');
+
+          if (status.isGranted) {
+            _sendCameraPermissionGranted();
+          } else if (status.isPermanentlyDenied) {
+            _showCameraPermissionDialog();
+          } else {
+            _sendCameraPermissionDenied();
+          }
+        });
+      }
+    });
+  }
+
+  void _showCameraPermissionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Kamera icazəsi'),
+          content: const Text(
+            'Kamera icazəsi vermədən bu funksionallıqdan istifadə edə bilməyəcəksiniz.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _sendCameraPermissionDenied();
+              },
+              child: const Text('Kamera olmadan davam et'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                openAppSettings();
+              },
+              child: const Text('İcazəni ver'),
+            ),
+          ],
+        );
       },
     );
   }
