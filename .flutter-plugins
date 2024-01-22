@@ -1,2 +1,7 @@
 # This is a generated file; do not edit or check into version control.
 flutter_inappwebview=/Users/kamranbekirovyz/.pub-cache/hosted/pub.dev/flutter_inappwebview-5.8.0/
+permission_handler=/Users/kamranbekirovyz/.pub-cache/hosted/pub.dev/permission_handler-11.2.0/
+permission_handler_android=/Users/kamranbekirovyz/.pub-cache/hosted/pub.dev/permission_handler_android-12.0.3/
+permission_handler_apple=/Users/kamranbekirovyz/.pub-cache/hosted/pub.dev/permission_handler_apple-9.3.0/
+permission_handler_html=/Users/kamranbekirovyz/.pub-cache/hosted/pub.dev/permission_handler_html-0.1.1/
+permission_handler_windows=/Users/kamranbekirovyz/.pub-cache/hosted/pub.dev/permission_handler_windows-0.2.1/
