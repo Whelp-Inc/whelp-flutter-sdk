@@ -1,3 +1,6 @@
+## 0.6.0
+- Added built-in support for camera permission handling.
+
 ## 0.5.2
 - Fixed issue where the live chat was not showing up on on-premise installations.
 
