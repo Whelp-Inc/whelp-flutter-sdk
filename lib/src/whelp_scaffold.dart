@@ -208,13 +208,7 @@ class _WebViewState extends State<_WebView> {
     if (defaultTargetPlatform != TargetPlatform.android) return;
 
     if (consoleMessage.message == 'js_loaded') {
-      widget.onLog?.call('delaying checking permission...');
-
-      // Delay the permission check to make sure the Whelp SDK is fully loaded.
-      // Temporary workaround.
-      Future.delayed(const Duration(seconds: 3), () {
-        _checkCameraPermission();
-      });
+      _checkCameraPermission();
     } else if (consoleMessage.message == 'ask_permission') {
       _handleCameraPermissions();
     }
