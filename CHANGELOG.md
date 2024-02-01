@@ -1,3 +1,6 @@
+## 0.6.1
+- Removed the delay workaround before checking permissions which is now fixed on the JS side.
+
 ## 0.6.0
 - Added built-in support for camera permission handling.
 
