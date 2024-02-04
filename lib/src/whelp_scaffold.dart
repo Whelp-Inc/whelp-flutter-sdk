@@ -165,12 +165,12 @@ class _WebViewState extends State<_WebView> {
   @override
   Widget build(BuildContext context) {
     return InAppWebView(
-      initialUrlRequest: URLRequest(url: widget.url),
-      initialOptions: InAppWebViewGroupOptions(
-        crossPlatform: InAppWebViewOptions(
-          transparentBackground: true,
-          useShouldOverrideUrlLoading: true,
-        ),
+      initialUrlRequest: URLRequest(
+        url: WebUri.uri(widget.url),
+      ),
+      initialSettings: InAppWebViewSettings(
+        transparentBackground: true,
+        useShouldOverrideUrlLoading: true,
       ),
       onConsoleMessage: (_, consoleMessage) {
         _handleConsoleLogs(consoleMessage);
