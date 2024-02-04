@@ -1,10 +1,11 @@
-# Whelp Live Chat for Flutter
+# whelp_flutter_sdk
 
-[![Pub Version](https://img.shields.io/pub/v/whelp_flutter_sdk)](https://pub.dev/packages/whelp_flutter_sdk)
-
-Whelp Flutter Live Chat Package is a Flutter library that allows you to integrate a live chat feature into your Flutter applications using the Whelp service.
+Official Flutter package for integrating the Whelp Live Chat feature into Flutter applications. 
 
 For native Android and iOS applications, please refer to the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/doc/native_android.md" target="_blank">Android</a> and <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/doc/native_ios.md">iOS</a> documentation.
+
+
+<img src="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/doc/cover.png?raw=true">
 
 ## ⚠️ Note
 

@@ -328,7 +328,4 @@ class FlutterManager: ObservableObject {
 ```
 
 ## 📄 License
-This package is open-source and released under the MIT License.
-
-## 🙏 Contributing
-Please report any issues or feature requests on the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk" target="_blank">GitHub repository</a>. Contributions are welcome.
+This package is open-source and released under the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/LICENSE" target="_blank">MIT License</a>.
