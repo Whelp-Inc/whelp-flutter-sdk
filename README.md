@@ -8,7 +8,7 @@ For native Android and iOS applications, please refer to the <a href="https://gi
 
 ## ⚠️ Note
 
-Before you use the package, you must be enrolled to [Whelp](https://whelp.co) in order to obtain an `APP_ID` and `API_KEY` on which the SDK depends on to function. 
+Before you use the package, you must be enrolled to [Whelp](https://whelp.co) in order to obtain an `APP_ID` and `API_KEY` on which the SDK depends on.
 
 ## 🪚 Installation
 
@@ -18,7 +18,7 @@ To use this package, add `whelp_flutter_sdk` as a dependency in your `pubspec.ya
 dependencies:
   flutter:
     sdk: flutter
-  whelp_flutter_sdk: ^0.4.2
+  whelp_flutter_sdk: ^0.6.1
 ```
 
 Then, run `flutter pub get` in your terminal to install the package.
@@ -29,15 +29,15 @@ In order to be able to use media attachments in the live chat, it's required to 
 
 ### Android
 
+Add the following permissions:
+
 ```xml
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 
-Also, to enable picking media files not only from the gallery but also from the camera, follow the steps below:
-
-1. Add the following provider to your `AndroidManifest.xml`:
+Add the following provider:
 
 ```xml
   <provider 
@@ -53,17 +53,9 @@ Also, to enable picking media files not only from the gallery but also from the 
 
 For more info, visit [example app's `AndroidManifest.xml` file](https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/example/android/app/src/main/AndroidManifest.xml).
 
-2. Request camera permission before you initialize the SDK:
-
-```dart
-import 'package:permission_handler/permission_handler.dart';
-
-await Permission.camera.request();
-```
-
-Make sure you do the permission handling properly.
-
 ### iOS
+
+Add the following permissions:
 
 ```xml
   <key>NSCameraUsageDescription</key>
@@ -111,9 +103,11 @@ final WhelpConfig config = WhelpConfig(
   // Title displayed under the header
   headerTitle: 'What do you want to talk us about?',
 
-  // Log messages from the SDK (for debugging purposes)
+  // Log messages from the SDK for debugging purposes
   onLog: (String message) {
-    log(message, name: 'WHELP');
+    if (kDebugMode) {
+      log(message, name: 'WHELP');
+    }
   },
 
   // Status messages displayed on the header
@@ -122,7 +116,7 @@ final WhelpConfig config = WhelpConfig(
 );
 ```
 
-If you are using an on-premise Whelp instance, you can also specify the `baseUrl` parameter to `WhelpConfig.onPremise`:
+If you are using an on-premise Whelp instance, use `WhelpConfig.onPremise` to specify the base URL:
 
 ```dart
 final WhelpConfig config = WhelpConfig.onPremise(
@@ -151,7 +145,3 @@ For a more detailed example, check the <a href="https://github.com/Whelp-Inc/whe
 
 ## 📄 License
 This package is open-source and released under the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk/blob/main/LICENSE" target="_blank">MIT License</a>.
-
-## 🙏 Contributing
-
-Please report any issues or feature requests on the <a href="https://github.com/Whelp-Inc/whelp-flutter-sdk" target="_blank">GitHub repository</a>. Contributions are welcome.
