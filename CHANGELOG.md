@@ -1,3 +1,7 @@
+## 0.6.2
+- Upgraded `flutter_inappwebview` to `6.0.0`
+- Updated documentation
+
 ## 0.6.1
 - Removed the delay workaround before checking permissions which is now fixed on the JS side.
 

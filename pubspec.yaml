@@ -1,6 +1,6 @@
 name: whelp_flutter_sdk
 description: Whelp Live Chat SDK for Flutter targeting Android and iOS platforms
-version: 0.6.1
+version: 0.6.2
 homepage: https://whelp.co
 repository: https://github.com/Whelp-Inc/whelp-flutter-sdk
 issue_tracker: https://github.com/Whelp-Inc/whelp-flutter-sdk/issues
@@ -13,7 +13,7 @@ dependencies:
   crypto: ^3.0.3
   flutter:
     sdk: flutter
-  flutter_inappwebview: ^5.8.0
+  flutter_inappwebview: ^6.0.0
   http: ^1.1.0
   permission_handler: ^11.2.0
 
